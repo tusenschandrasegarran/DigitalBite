@@ -24,6 +24,11 @@
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
                 <div class="form-group">
+                    <label asp-for="Input.Role"></label> <br />
+                    <input asp-for="Input.Role" type="radio" value="Admin" checked />&nbsp; Admin &nbsp;
+                    <input asp-for="Input.Role" type="radio" value="Customer" />&nbsp; Customer
+                </div>
+                <div class="form-group">
                     <div class="checkbox">
                         <label asp-for="Input.RememberMe">
                             <input asp-for="Input.RememberMe" />

@@ -51,6 +51,11 @@ namespace DigitalBite.Areas.Identity.Pages.Account
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Role")]
+            public string Role { get; set; }
+
             [Display(Name = "Remember me?")]
             public bool RememberMe { get; set; }
         }
@@ -83,6 +88,7 @@ namespace DigitalBite.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    // Choose role here -Pending
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }

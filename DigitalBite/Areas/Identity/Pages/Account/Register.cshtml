@@ -13,9 +13,9 @@
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Input.RestaurantName"></label>
-                <input asp-for="Input.RestaurantName" class="form-control" />
-                <span asp-validation-for="Input.RestaurantName" class="text-danger"></span>
+                <label asp-for="Input.Name"></label>
+                <input asp-for="Input.Name" class="form-control" />
+                <span asp-validation-for="Input.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Input.Email"></label>
@@ -31,6 +31,11 @@
                 <label asp-for="Input.ConfirmPassword"></label>
                 <input asp-for="Input.ConfirmPassword" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Role"></label> <br />
+                <input asp-for="Input.Role" type="radio" value="Admin" checked />&nbsp; Admin &nbsp;
+                <input asp-for="Input.Role" type="radio" value="Customer" />&nbsp; Customer
             </div>
             <div class="form-group">
                 <label asp-for="Input.Address"></label>

@@ -10,8 +10,10 @@ namespace DigitalBite.Areas.Identity.Data
     public class DigitalBiteAdmin : IdentityUser
     {
         [PersonalData]
-        public string RestaurantName { get; set; }
-        [PersonalData]
         public string Address { get; set; }
+        [PersonalData]
+        public string Role { get; set; }
+        [PersonalData]
+        public string Name { get; set; }
     }
 }
