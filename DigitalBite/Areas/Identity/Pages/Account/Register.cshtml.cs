@@ -48,8 +48,8 @@ namespace DigitalBite.Areas.Identity.Pages.Account
         {
             [Required]
             [DataType(DataType.Text)]
-            [Display(Name = "Restaurant Name")]
-            public string RestaurantName { get; set; }
+            [Display(Name = "Name")]
+            public string Name { get; set; }
 
             [Required]
             [EmailAddress]
@@ -71,6 +71,11 @@ namespace DigitalBite.Areas.Identity.Pages.Account
             [DataType(DataType.Text)]
             [Display(Name = "Address")]
             public string Address { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Role")]
+            public string Role { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -86,9 +91,10 @@ namespace DigitalBite.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = new DigitalBiteAdmin {
-                    RestaurantName = Input.RestaurantName,
-                    UserName = Input.Email,
+                    Name = Input.Name,
                     Email = Input.Email,
+                    UserName = Input.Email,
+                    Role = Input.Role,
                     Address = Input.Address
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);

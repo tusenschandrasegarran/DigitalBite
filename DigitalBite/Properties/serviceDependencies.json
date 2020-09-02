@@ -3,6 +3,10 @@
     "mssql1": {
       "type": "mssql",
       "connectionId": "AdminConnection"
+    },
+    "mssql2": {
+      "type": "mssql",
+      "connectionId": "DigitalBiteMenu"
     }
   }
 }
