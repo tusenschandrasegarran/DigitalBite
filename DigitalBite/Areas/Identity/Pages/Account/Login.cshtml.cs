@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
 
 namespace DigitalBite.Areas.Identity.Pages.Account
 {
@@ -79,6 +80,7 @@ namespace DigitalBite.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+            HttpContext.Session.SetString("sessionuser", Input.Role);
             returnUrl = returnUrl ?? Url.Content("~/");
 
             if (ModelState.IsValid)

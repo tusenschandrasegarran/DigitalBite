@@ -2,11 +2,13 @@
   "dependencies": {
     "mssql1": {
       "type": "mssql.local",
-      "connectionId": "AdminConnection"
-    },
-    "mssql2": {
-      "type": "mssql.local",
       "connectionId": "DigitalBiteMenu"
+    },
+    "storage1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroup')]/providers/Microsoft.Storage/storageAccounts/digitalbitestorage",
+      "type": "storage.azure",
+      "connectionId": "DigitalBiteStorage",
+      "secretStore": "LocalSecretsFile"
     }
   }
 }
