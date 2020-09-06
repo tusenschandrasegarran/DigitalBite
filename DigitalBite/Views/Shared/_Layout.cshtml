@@ -37,6 +37,12 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Blobs" asp-action="CreateBlobContainer">CreateBlobContaine</a>
                             </li>
                         }
+                        @if (SignInManager.IsSignedIn(User) && (@Context.Session.GetString("sessionuser")=="Customer"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Menus" asp-action="Index">Manage Menu</a>
+                            </li>
+                        }
                     </ul>
                 </div>
 
