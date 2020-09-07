@@ -52,11 +52,6 @@ namespace DigitalBite.Areas.Identity.Pages.Account
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
-            [Required]
-            [DataType(DataType.Text)]
-            [Display(Name = "Role")]
-            public string Role { get; set; }
-
             [Display(Name = "Remember me?")]
             public bool RememberMe { get; set; }
         }
@@ -80,7 +75,6 @@ namespace DigitalBite.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            HttpContext.Session.SetString("sessionuser", Input.Role);
             returnUrl = returnUrl ?? Url.Content("~/");
 
             if (ModelState.IsValid)
@@ -90,9 +84,20 @@ namespace DigitalBite.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    var user = await _userManager.FindByEmailAsync(Input.Email);
+                    var role = user.Role;
+
+                    if (role == "Admin")
+                    {
+                        return Redirect("~/Menus");
+                    }
+                    else
+                    {
+                        return LocalRedirect(returnUrl);
+                    }
                     // Choose role here -Pending
-                    _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    //_logger.LogInformation("User logged in.");
+                    //return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
                 {

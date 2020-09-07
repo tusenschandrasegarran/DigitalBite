@@ -5,6 +5,9 @@
 @inject IHttpContextAccessor HttpContextAccessor
 @inject SignInManager<DigitalBiteAdmin> SignInManager
 @inject UserManager<DigitalBiteAdmin> UserManager
+@{
+    var user = await UserManager.GetUserAsync(User);
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +28,7 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
-                        @if (SignInManager.IsSignedIn(User) && (@Context.Session.GetString("sessionuser")=="Admin"))
+                        @if (SignInManager.IsSignedIn(User) && user.Role == "Admin")
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Menus" asp-action="Index">Manage Menu</a>
@@ -37,10 +40,10 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Blobs" asp-action="CreateBlobContainer">CreateBlobContaine</a>
                             </li>
                         }
-                        @if (SignInManager.IsSignedIn(User) && (@Context.Session.GetString("sessionuser")=="Customer"))
+                        @if (SignInManager.IsSignedIn(User) && user.Role == "Customer")
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Menus" asp-action="Index">Manage Menu</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Menus" asp-action="Views">View</a>
                             </li>
                         }
                     </ul>
