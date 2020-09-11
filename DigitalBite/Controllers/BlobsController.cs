@@ -18,13 +18,13 @@ namespace DigitalBite.Controllers
         }
 
         // Connect to a storage account and get a container reference.
-        private CloudBlobContainer GetCloudBlobContainer()
+        public CloudBlobContainer GetCloudBlobContainer()
         {
             var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
             IConfigurationRoot Configuration = builder.Build();
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(Configuration["ConnectionStrings:DigitalBiteStorage"]);
                 CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-            CloudBlobContainer container = blobClient.GetContainerReference("menu-blob-container");
+            CloudBlobContainer container = blobClient.GetContainerReference("home-blob-container");
             return container;
         }
 
@@ -40,6 +40,24 @@ namespace DigitalBite.Controllers
             // Update view bag with the name of blob container
             ViewBag.BlobContainerName = container.Name;
             return View();
+        }
+
+        public ActionResult ListBlobs()
+        {
+            CloudBlobContainer container = GetCloudBlobContainer();
+
+            List<string> blobs = new List<string>();
+            BlobResultSegment resultSegment = container.ListBlobsSegmentedAsync(null).Result;
+            foreach (IListBlobItem item in resultSegment.Results)
+            {
+                if (item.GetType() == typeof(CloudBlockBlob))
+                {
+                    CloudBlockBlob blob = (CloudBlockBlob)item;
+                    blobs.Add(blob.Uri.ToString());
+                }
+                
+            }
+            return View(blobs);
         }
 
 

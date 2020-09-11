@@ -25,7 +25,7 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
-                        @if (SignInManager.IsSignedIn(User) && (@Context.Session.GetString("sessionuser")=="Admin"))
+                        @if (SignInManager.IsSignedIn(User) && (@Context.Session.GetString("sessionuser") == "Admin"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Menus" asp-action="Index">Manage Menu</a>
@@ -33,15 +33,23 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Menus" asp-action="Create">Add Menu</a>
                             </li>
+
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Blobs" asp-action="CreateBlobContainer">CreateBlobContaine</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Blobs" asp-action="ListBlobs">List blob</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Table" asp-action="CreateTable">Create table</a>
+                            </li>
+
+                            // OrderHistory
                         }
-                        @if (SignInManager.IsSignedIn(User) && (@Context.Session.GetString("sessionuser")=="Customer"))
+                        @if (SignInManager.IsSignedIn(User) && (@Context.Session.GetString("sessionuser") == "Customer"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Menus" asp-action="Index">Manage Menu</a>
                             </li>
+                            // OrderHistory, Item Menu, Make Order
+
                         }
                     </ul>
                 </div>
@@ -61,9 +69,17 @@
             &copy; 2020 - DigitalBite - <a asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        $(document).ready(function () {
+            $('#carouselExampleIndicators').find('.carousel-item').first().addClass('active');
+        });
+    </script>
     @RenderSection("Scripts", required: false)
+
+
 </body>
 </html>
