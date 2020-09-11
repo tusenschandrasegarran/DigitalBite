@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using DigitalBite.Models;
+using Microsoft.Azure.Storage.Blob;
 
 namespace DigitalBite.Controllers
 {
@@ -20,7 +21,24 @@ namespace DigitalBite.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            BlobsController bc = new BlobsController();
+            CloudBlobContainer container = bc.GetCloudBlobContainer();
+
+            ViewBag.Success = container.CreateIfNotExistsAsync().Result;
+
+            List<string> blobs = new List<string>();
+            BlobResultSegment resultSegment = container.ListBlobsSegmentedAsync(null).Result;
+            foreach (IListBlobItem item in resultSegment.Results)
+            {
+                if (item.GetType() == typeof(CloudBlockBlob))
+                {
+                    CloudBlockBlob blob = (CloudBlockBlob)item;
+                    blobs.Add(blob.Uri.ToString());
+                }
+
+            }
+
+            return View(blobs);
         }
 
         public IActionResult AboutUs()
