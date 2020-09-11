@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DigitalBite.Data;
 using DigitalBite.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Azure.Storage.Blob;
 
 namespace DigitalBite.Views.Menus
 {
@@ -21,6 +23,12 @@ namespace DigitalBite.Views.Menus
 
         // GET: Menus
         public async Task<IActionResult> Index()
+        {
+            return View(await _context.Menu.ToListAsync());
+        }
+
+        // GET: Menus
+        public async Task<IActionResult> Views()
         {
             return View(await _context.Menu.ToListAsync());
         }
@@ -54,10 +62,20 @@ namespace DigitalBite.Views.Menus
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,ItemName,Type,Price")] Menu menu)
+        public async Task<IActionResult> Create(List<IFormFile>files,[Bind("ID,ItemName,Type,Price")] Menu menu)
         {
             if (ModelState.IsValid)
             {
+                try
+                {
+                    // Get a CloudBlobContainer object that represents a reference to the desired blob container name.
+                    //CloudBlobContainer container = GetCloudBlobInformation();
+
+                } catch (Exception ex)
+                {
+
+                }
+
                 _context.Add(menu);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
