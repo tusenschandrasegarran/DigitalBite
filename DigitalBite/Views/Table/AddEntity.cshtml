@@ -1,0 +1,14 @@
+﻿@model DigitalBite.Models.Menu
+@{
+    ViewData["Title"] = "AddEntity";
+}
+
+<h1>Your order has been made!</h1>
+
+<p>
+    Your order of @ViewBag.TableName will arrive shortly!
+    @(ViewBag.Result== 204? "Success!": "Failed. Mayve the ddata alraedy exisst!")
+
+</p>
+
+<a asp-controller="Menus" asp-action="Views">Back to Menu</a>

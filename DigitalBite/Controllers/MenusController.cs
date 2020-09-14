@@ -51,6 +51,25 @@ namespace DigitalBite.Views.Menus
             return View(menu);
         }
 
+
+        // GET: Menus/order/5
+        public async Task<IActionResult> Order(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var menu = await _context.Menu
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (menu == null)
+            {
+                return NotFound();
+            }
+
+            return View(menu);
+        }
+
         // GET: Menus/Create
         public IActionResult Create()
         {

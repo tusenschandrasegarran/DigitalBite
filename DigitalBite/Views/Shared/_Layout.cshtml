@@ -41,13 +41,20 @@
                                 <a class="nav-link" style="color: #ffffff" asp-area="" asp-controller="Menus" asp-action="Create">Add Menu</a>
                             </li>
 
+                            <li class="nav-item">
+                                <a class="nav-link" style="color: #ffffff" asp-area="" asp-controller="Table" asp-action="Orders">Order History</a>
+                            </li>
+
                             // OrderHistory
                         }
 
                         @if (SignInManager.IsSignedIn(User) && user.Role == "Customer")
                         {
                             <li class="nav-item">
-                                <a class="nav-link" style="color: #ffffff" asp-area="" asp-controller="Menus" asp-action="Views">View</a>
+                                <a class="nav-link" style="color: #ffffff" asp-area="" asp-controller="Menus" asp-action="Views">View Menu</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" style="color: #ffffff" asp-area="" asp-controller="Table" asp-action="OrderHistory" asp-route-email="@UserManager.GetUserName(User)" >Your purchases</a>
                             </li>
                             // OrderHistory, Item Menu, Make Order
 
