@@ -1,0 +1,39 @@
+﻿@model IEnumerable<DigitalBite.Models.OrderEntity>
+
+@{
+    ViewData["Title"] = "OrderHistory";
+}
+
+<h1>OrderHistory</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Date
+            </th>
+            <th>
+                Food
+            </th>
+            <th>
+                Price
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>
+                    @order.RowKey
+                </td>
+                <td>
+                    @order.Food
+                </td>
+                <td>
+                    @order.Price
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

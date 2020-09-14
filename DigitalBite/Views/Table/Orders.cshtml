@@ -1,0 +1,45 @@
+﻿@model IEnumerable<DigitalBite.Models.OrderEntity>
+
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<h1>Orders</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Username
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Food
+            </th>
+            <th>
+                Price
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>
+                    @order.PartitionKey
+                </td>
+                <td>
+                    @order.RowKey
+                </td>
+                <td>
+                    @order.Food
+                </td>
+                <td>
+                    @order.Price
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

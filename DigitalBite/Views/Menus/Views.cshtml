@@ -32,6 +32,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
+            <td>
+            <td>
+                
+                <a asp-action="Order" asp-route-id="@item.ID">Order now</a> |
+                
+            </td>
+            
         </tr>
 }
     </tbody>

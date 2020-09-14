@@ -1,0 +1,37 @@
+﻿@model DigitalBite.Models.Menu
+
+@using Microsoft.AspNetCore.Identity
+@using DigitalBite.Areas.Identity.Data
+
+@inject SignInManager<DigitalBiteAdmin> SignInManager
+@inject UserManager<DigitalBiteAdmin> UserManager
+
+@{
+    ViewData["Title"] = "Item Details";
+}
+
+<h1>Item Details</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ItemName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ItemName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+    </dl>
+</div>
+<div>
+
+    <a asp-controller="Table" asp-action="AddEntity" asp-route-email="@UserManager.GetUserName(User)" asp-route-food="@Model.ItemName"
+      asp-route-price="@Model.Price">Order Now</a> |
+    <a asp-action="Views">Back to Menu</a>
+</div>
