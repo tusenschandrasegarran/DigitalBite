@@ -13,7 +13,9 @@ namespace DigitalBite.Controllers
 {
     public class ServiceBusController : Controller
     {
-        const string ServiceBusConnectionString = "Endpoint=sb://digitalbite.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=ZkYv5OEXBaY4pan93mfSjoxwP6jR9A9ATuGiscCmdH0=";
+        const string ServiceBusConnectionString = "Endpoint=sb://digitalbite.servicebus.windows.net/;" +
+            "SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=" +
+            "ZkYv5OEXBaY4pan93mfSjoxwP6jR9A9ATuGiscCmdH0=";
         const string QueueName = "digitalBiteQueue";
         static IQueueClient queueClient;
         static List<string> items;
@@ -29,10 +31,8 @@ namespace DigitalBite.Controllers
                     // Create a new message to send to the queue.
                     string messageBody = $"Message {i}";
                     var message = new Message(Encoding.UTF8.GetBytes(messageBody));
-
                     // Write the body of the message to the console.
                     Console.WriteLine($"Sending message: {messageBody}");
-
                     // Send the message to the queue.
                     await queueClient.SendAsync(message);
                     ViewBag.msg = "success";
@@ -67,20 +67,21 @@ namespace DigitalBite.Controllers
         //Part 2: Received Message from the Service Bus - get data step
         private static async Task ExecuteMessageProcessing(Message message, CancellationToken arg2)
         {
-            //var result = JsonConvert.DeserializeObject<Ostring>(Encoding.UTF8.GetString(message.Body));
-            // Console.WriteLine($"Order Id is {result.OrderId}, Order name is {result.OrderName} and quantity is {result.OrderQuantity}");
-            Console.WriteLine($"Received message: SequenceNumber:{message.SystemProperties.SequenceNumber} Body:{Encoding.UTF8.GetString(message.Body)}");
+            // Console.WriteLine($"Order Id is {result.OrderId}, Order name is {result.OrderName} 
+            // and quantity is {result.OrderQuantity}");
+            Console.WriteLine($"Received message: SequenceNumber:{message.SystemProperties.SequenceNumber} " +
+                $"Body:{Encoding.UTF8.GetString(message.Body)}");
             await queueClient.CompleteAsync(message.SystemProperties.LockToken);
 
-            items.Add("Received message: SequenceNumber:" + message.SystemProperties.SequenceNumber + " Body:" + Encoding.UTF8.GetString(message.Body));
-
+            items.Add("Received message: SequenceNumber:" + message.SystemProperties.SequenceNumber +
+                " Body:" + Encoding.UTF8.GetString(message.Body));
         }
 
         //Part 2: Received Message from the Service Bus
         private static async Task ExceptionMethod(ExceptionReceivedEventArgs arg)
         {
-            await Task.Run(() =>
-           Console.WriteLine($"Error occured. Error is {arg.Exception.Message}")
+           await Task.Run(() =>
+                Console.WriteLine($"Error occured. Error is {arg.Exception.Message}")
            );
         }
 
